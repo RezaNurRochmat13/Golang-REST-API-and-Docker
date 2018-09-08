@@ -10,6 +10,8 @@ WORKDIR /my-app
 
 RUN go get -u github.com/gorilla/mux
 
+RUN go get -u github.com/bitly/go-simplejson
+
 RUN go build -o mainApp .
 
 CMD ["/my-app/mainApp"]
