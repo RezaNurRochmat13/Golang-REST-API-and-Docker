@@ -44,13 +44,14 @@ func main() {
 	routers.HandleFunc("/products", GetAllProducts).Methods("GET")
 	routers.HandleFunc("/products/{id}", GetDetailProducts).Methods("GET")
 	routers.HandleFunc("/products", CreateNewProducts).Methods("POST")
+	routers.HandleFunc("/products/{id}", UpdateProducts).Methods("PUT")
 	fmt.Println("Server serve in port 8080")
 	log.Fatal(http.ListenAndServe(":8080", routers))
 }
 
 // GetAllProducts function does get all products
 func GetAllProducts(w http.ResponseWriter, req *http.Request) {
-	db, err := gorm.Open("mysql", "root:reza@tcp(127.0.0.1:3306)/store")
+	db, err := gorm.Open("mysql", "root:reza@tcp(127.0.0.1:3306)/store?parseTime=true")
 
 	if err != nil {
 		panic("failed to connect database")
@@ -89,4 +90,25 @@ func CreateNewProducts(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&products)
 
 	db.Create(&products)
+}
+
+// UpdateProducts function does update data products
+func UpdateProducts(w http.ResponseWriter, r *http.Request) {
+	db, err := gorm.Open("mysql", "root:reza@tcp(127.0.0.1:3306)/store")
+
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	var product Product
+
+	params := mux.Vars(r)
+	id := params["id"]
+
+	if err := db.Where("id = ?", id).First(&product).Error; err != nil {
+		fmt.Println(http.StatusBadRequest)
+	} else {
+		db.Save(&product)
+	}
+
 }
