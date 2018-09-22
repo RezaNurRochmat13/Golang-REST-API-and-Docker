@@ -11,7 +11,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-// Product struct
+// Product struct model
 type Product struct {
 	gorm.Model
 	ProductCode  string
@@ -51,14 +51,16 @@ func main() {
 
 // GetAllProducts function does get all products
 func GetAllProducts(w http.ResponseWriter, req *http.Request) {
-	db, err := gorm.Open("mysql", "root:reza@tcp(127.0.0.1:3306)/store?parseTime=true")
+	db, err := gorm.Open("mysql", "root:reza@tcp(127.0.0.1:3306)/store")
 
 	if err != nil {
 		panic("failed to connect database")
 	}
+	defer db.Close()
 
 	var products []Product
 	db.Find(&products)
+	log.Println(products)
 
 	json.NewEncoder(w).Encode(products)
 }
