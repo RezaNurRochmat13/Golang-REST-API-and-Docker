@@ -8,9 +8,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func getAllProducts(c *gin.Context) {
+// GetAllProducts function does get all products
+func GetAllProducts(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"count": 1,
 		"data":  "all product",
 		"total": 1})
+}
+
+// GetSingleProducts function does get single data products
+func GetSingleProducts(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"data": "product"})
 }
