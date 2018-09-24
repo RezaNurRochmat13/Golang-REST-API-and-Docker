@@ -11,10 +11,16 @@ import (
 // Global variable
 var db *gorm.DB
 
-// Product struct
+// Product struct models database
 type Product struct {
 	gorm.Model
 	ProductCode        string
+	ProductName        string
+	ProductDescription string
+}
+
+// Products struct payload mapper
+type Products struct {
 	ProductName        string
 	ProductDescription string
 }
@@ -29,14 +35,4 @@ func InitialMigration() {
 	defer db.Close()
 
 	db.AutoMigrate(&Product{})
-}
-
-// DatabaseConnection function does init connection with database
-func DatabaseConnection() {
-	db, err := gorm.Open("mysql", "root:reza@/store?charset=utf8&parseTime=True&loc=Local")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
 }
