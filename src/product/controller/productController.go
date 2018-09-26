@@ -53,8 +53,71 @@ func GetSingleProducts(c *gin.Context) {
 	db.Where("product_code = ?", ProductCode).Find(&products)
 
 	if db.Where("product_code = ?", ProductCode).Find(&products).RecordNotFound() {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "BAD REQUEST"})
+		c.JSON(http.StatusNotFound, gin.H{"error": "NOT FOUND"})
 	} else {
 		c.JSON(http.StatusOK, gin.H{"data": products})
 	}
+}
+
+// CreateProducts function does create new products
+func CreateProducts(c *gin.Context) {
+	db, err := gorm.Open("mysql", "root:reza@/store?charset=utf8&parseTime=True&loc=Local")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	var createProduct models.Product
+
+	c.BindJSON(&createProduct)
+	db.Save(&createProduct)
+
+	c.JSON(http.StatusOK, gin.H{"message": "Inserted successfully"})
+}
+
+// UpdateProducts function does update products
+func UpdateProducts(c *gin.Context) {
+	db, err := gorm.Open("mysql", "root:reza@/store?charset=utf8&parseTime=True&loc=Local")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	ProductCode := c.Param("ProductCode")
+
+	var updateProducts models.Product
+	db.Where("product_code = ?", ProductCode).Find(&updateProducts)
+
+	if db.Where("product_code = ?", ProductCode).Find(&updateProducts).RecordNotFound() {
+		c.JSON(http.StatusNotFound, gin.H{"error": "NOT FOUND RECORD"})
+	} else {
+		c.BindJSON(&updateProducts)
+		db.Save(&updateProducts)
+		c.JSON(http.StatusOK, gin.H{"message": "Updated successfully"})
+	}
+}
+
+// DeleteProducts function does delete products
+func DeleteProducts(c *gin.Context) {
+	db, err := gorm.Open("mysql", "root:reza@/store?charset=utf8&parseTime=True&loc=Local")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	ProductCode := c.Param("ProductCode")
+
+	var deleteProduct models.Product
+	db.Where("product_code = ?", ProductCode).Find(&deleteProduct)
+
+	if db.Where("product_code = ?", ProductCode).Find(&deleteProduct).RecordNotFound() {
+		c.JSON(http.StatusNotFound, gin.H{"error": "NOT FOUND RESOURCE"})
+	} else {
+		db.Delete(&deleteProduct)
+		c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
+	}
+
 }

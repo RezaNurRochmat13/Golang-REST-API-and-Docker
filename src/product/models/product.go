@@ -14,9 +14,9 @@ var db *gorm.DB
 // Product struct models database
 type Product struct {
 	gorm.Model
-	ProductCode        string
-	ProductName        string
-	ProductDescription string
+	ProductCode        string `json:"product_code"`
+	ProductName        string `json:"product_name"`
+	ProductDescription string `json:"product_description"`
 }
 
 // Products struct payload mapper

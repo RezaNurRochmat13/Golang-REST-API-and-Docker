@@ -23,6 +23,9 @@ func productModule() {
 	{
 		v1.GET("product", controller.GetAllProducts)
 		v1.GET("product/:ProductCode", controller.GetSingleProducts)
+		v1.POST("/product", controller.CreateProducts)
+		v1.PUT("/product/:ProductCode", controller.UpdateProducts)
+		v1.DELETE("/product/:ProductCode", controller.DeleteProducts)
 	}
 
 	routers.Run()
