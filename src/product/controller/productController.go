@@ -116,7 +116,7 @@ func DeleteProducts(c *gin.Context) {
 	if db.Where("product_code = ?", ProductCode).Find(&deleteProduct).RecordNotFound() {
 		c.JSON(http.StatusNotFound, gin.H{"error": "NOT FOUND RESOURCE"})
 	} else {
-		db.Delete(&deleteProduct)
+		db.Unscoped().Delete(&deleteProduct)
 		c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
 	}
 

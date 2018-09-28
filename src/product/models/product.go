@@ -25,8 +25,8 @@ type Products struct {
 	ProductDescription string
 }
 
-// InitialMigration does init migration when table in database doesn't exisr
-func InitialMigration() {
+// ProductMigration does init migration when table in database doesn't exisr
+func ProductMigration() {
 	db, err := gorm.Open("mysql", "root:reza@/store?charset=utf8&parseTime=True&loc=Local")
 
 	if err != nil {
