@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Golang-REST-API-Gorilla-Mux-and-Docker/src/product/models"
+	"github.com/Golang-REST-API-Gorilla-Mux-and-Docker/src/model"
 
 	"github.com/jinzhu/gorm"
 
@@ -25,7 +25,7 @@ func GetAllProducts(c *gin.Context) {
 	}
 	defer db.Close()
 
-	var products []models.Products
+	var products []models.Product
 	var countProduct int
 
 	db.Find(&products)
