@@ -25,7 +25,7 @@ func GetAllProducts(c *gin.Context) {
 	}
 	defer db.Close()
 
-	var products []models.Product
+	var products []models.Products
 	var countProduct int
 
 	db.Find(&products)
