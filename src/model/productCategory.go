@@ -10,3 +10,9 @@ type ProductCategory struct {
 	ProductCategoryCode string `json:"productCategoryCode"`
 	ProductCategoryName string `json:"productCategoryName"`
 }
+
+// ProductsCategory struct mapper
+type ProductsCategory struct {
+	ProductCategoryCode string
+	ProductCategoryName string
+}
