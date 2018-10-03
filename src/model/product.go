@@ -16,6 +16,7 @@ type Product struct {
 
 // Products struct payload mapper
 type Products struct {
-	ProductName        string
-	ProductDescription string
+	ProductName         string
+	ProductDescription  string
+	ProductCategoryName string
 }

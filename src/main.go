@@ -1,10 +1,8 @@
 package main
 
 import (
-	"github.com/Golang-REST-API-Gorilla-Mux-and-Docker/src/controller"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
-
 	"github.com/gin-gonic/gin"
+	"github.com/golang-rest-api/src/controller"
 )
 
 func main() {
@@ -28,8 +26,10 @@ func BaseRoutes() {
 		// Product category main routing
 		v1.GET("product-category", controller.GetAllProductCategory)
 		v1.GET("product-category/:ProductCategoryCode", controller.GetSingleProductCategory)
+		v1.POST("product-category", controller.CreateProductCategory)
+		v1.PUT("product-category/:ProductCategoryCode", controller.UpdateProductCategory)
 
 	}
 
-	BaseRoutes.Run(":8000")
+	BaseRoutes.Run(":8200")
 }

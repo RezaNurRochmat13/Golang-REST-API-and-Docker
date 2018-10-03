@@ -6,15 +6,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Golang-REST-API-Gorilla-Mux-and-Docker/src/model"
-
 	"github.com/jinzhu/gorm"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-rest-api/src/model"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
-
-var db *gorm.DB
 
 // GetAllProducts function does get all products
 func GetAllProducts(c *gin.Context) {
@@ -28,7 +25,7 @@ func GetAllProducts(c *gin.Context) {
 	var products []models.Products
 	var countProduct int
 
-	db.Find(&products)
+	db.Select("products.product_name, products.product_description, products_categories.product_category_name").Joins("JOIN products_categories ON products_categories.product_category_code=products.product_category_code").Find(&products)
 	db.Table("products").Count(&countProduct)
 
 	c.JSON(http.StatusOK, gin.H{
