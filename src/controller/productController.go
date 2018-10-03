@@ -25,7 +25,7 @@ func GetAllProducts(c *gin.Context) {
 	var products []models.Products
 	var countProduct int
 
-	db.Select("products.product_name, products.product_description, products_categories.product_category_name").Joins("JOIN products_categories ON products_categories.product_category_code=products.product_category_code").Find(&products)
+	db.Select("products.product_name, products.product_description, products_categories.product_category_name").Joins("INNER JOIN products_categories ON products_categories.product_category_code=products.product_category_code").Find(&products)
 	db.Table("products").Count(&countProduct)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -47,7 +47,7 @@ func GetSingleProducts(c *gin.Context) {
 
 	var products models.Products
 
-	db.Where("product_code = ?", ProductCode).Find(&products)
+	db.Select("products.product_name, products.product_description, products_categories.product_category_name").Joins("INNER JOIN products_categories ON products_categories.product_category_code=products.product_category_code").Where("product_code = ?", ProductCode).Find(&products)
 
 	if db.Where("product_code = ?", ProductCode).Find(&products).RecordNotFound() {
 		c.JSON(http.StatusNotFound, gin.H{"error": "NOT FOUND"})

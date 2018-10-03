@@ -9,9 +9,10 @@ import (
 // Product struct models database
 type Product struct {
 	gorm.Model
-	ProductCode        string `json:"product_code"`
-	ProductName        string `json:"product_name"`
-	ProductDescription string `json:"product_description"`
+	ProductCode         string `json:"product_code"`
+	ProductName         string `json:"product_name"`
+	ProductDescription  string `json:"product_description"`
+	ProductCategoryName ProductCategory
 }
 
 // Products struct payload mapper
