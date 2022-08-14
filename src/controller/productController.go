@@ -3,13 +3,13 @@ package controller
 // PRODUCT CONTROLLERS
 
 import (
+	models "golang-rest-api/src/model"
 	"log"
 	"net/http"
 
 	"github.com/jinzhu/gorm"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-rest-api/src/model"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 

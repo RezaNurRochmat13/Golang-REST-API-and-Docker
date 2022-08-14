@@ -1,11 +1,11 @@
 package controller
 
 import (
+	models "golang-rest-api/src/model"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-rest-api/src/model"
 	"github.com/jinzhu/gorm"
 )
 
@@ -18,7 +18,7 @@ func GetAllProductCategory(c *gin.Context) {
 	}
 	defer db.Close()
 
-	var productCategory []models.ProductsCategory
+	var productCategory []models.ProductCategory
 	var countProductCategory int
 
 	db.Find(&productCategory)

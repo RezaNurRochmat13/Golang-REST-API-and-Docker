@@ -1,8 +1,9 @@
 package main
 
 import (
+	"golang-rest-api/src/controller"
+
 	"github.com/gin-gonic/gin"
-	"github.com/golang-rest-api/src/controller"
 )
 
 func main() {
